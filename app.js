@@ -1,28 +1,21 @@
 const express = require('express');
 const mongoose = require('mongoose');
-// const { celebrate, Joi, errors } = require('celebrate');
+const { errors } = require('celebrate');
+const helmet = require('helmet');
 
 const { PORT = 3000 } = process.env;
-const userRoutes = require('./routes/userRoutes');
-const movieRoutes = require('./routes/movieRoutes');
-const { auth } = require('./middlewares/auth');
-const { createUser, login } = require('./controllers/users');
-const NotFoundError = require('./errors/NotFoundError');
+const routes = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { createError } = require('./errors/createError');
+const { limiter } = require('./utils/rateLimit');
 
 const app = express();
 
+app.use(helmet.hidePoweredBy());
+app.use(limiter);
 app.use(requestLogger);
 app.use(express.json());
-app.post('/signup', createUser);
-app.post('/signin', login);
-app.use('/users', auth, userRoutes);
-app.use('/movies', auth, movieRoutes);
-
-app.use(auth, () => {
-  throw new NotFoundError('Неверный адрес');
-});
+app.use('/', routes);
 
 app.use(errorLogger);
 app.use(errors());
