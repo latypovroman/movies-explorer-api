@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { isUrl } = require('validator');
+const { isURL } = require('validator');
 
 const movieSchema = new mongoose.Schema({
   country: {
@@ -26,7 +26,7 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: (url) => isUrl(url),
+      validator: (image) => isURL(image),
       message: 'URL validation failed',
     },
   },
@@ -34,7 +34,7 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: (url) => isUrl(url),
+      validator: (trailer) => isURL(trailer),
       message: 'URL validation failed',
     },
   },
@@ -42,7 +42,7 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: (url) => isUrl(url),
+      validator: (thumbnail) => isURL(thumbnail),
       message: 'URL validation failed',
     },
   },
@@ -51,6 +51,10 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   nameEN: {
+    type: String,
+    required: true,
+  },
+  movieId: {
     type: String,
     required: true,
   },
