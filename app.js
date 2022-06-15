@@ -1,7 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
+// const cors = require('cors');
 
 const { PORT = 3000 } = process.env;
 const routes = require('./routes/index');
@@ -15,6 +17,9 @@ app.use(helmet.hidePoweredBy());
 app.use(limiter);
 app.use(requestLogger);
 app.use(express.json());
+// app.use(cors({
+//   origin: 'https://mesto.app.nomoredomains.sbs',
+// }));
 app.use('/', routes);
 
 app.use(errorLogger);
