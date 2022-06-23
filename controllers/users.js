@@ -33,7 +33,7 @@ module.exports.createUser = (req, res, next) => {
     });
 };
 
-module.exports.login = (req, res) => {
+module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
   return User.findUserByCredentials(email, password)
@@ -42,7 +42,7 @@ module.exports.login = (req, res) => {
       res.send({ token });
     })
     .catch(() => {
-      throw new UnauthorizedError('Неверный логин или пароль');
+      next(new UnauthorizedError('Неверный логин или пароль'));
     });
 };
 

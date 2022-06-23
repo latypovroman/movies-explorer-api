@@ -6,6 +6,7 @@ const helmet = require('helmet');
 // const cors = require('cors');
 
 const { PORT = 3000 } = process.env;
+const { DATAB_URL } = process.env;
 const routes = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { createError } = require('./errors/createError');
@@ -27,7 +28,7 @@ app.use(errors());
 app.use(createError);
 
 async function main() {
-  await mongoose.connect('mongodb://localhost:27017/moviesdb', {
+  await mongoose.connect(DATAB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: false,
   });

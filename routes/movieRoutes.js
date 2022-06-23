@@ -17,6 +17,7 @@ movieRoutes.post('/', celebrate({
     thumbnail: Joi.string().required().custom(validation),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
+    movieId: Joi.number().required(),
   }),
 }), createMovie);
 
