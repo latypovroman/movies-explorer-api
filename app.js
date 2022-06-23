@@ -15,8 +15,8 @@ const { limiter } = require('./utils/rateLimit');
 const app = express();
 
 app.use(helmet.hidePoweredBy());
-app.use(limiter);
 app.use(requestLogger);
+app.use(limiter);
 app.use(express.json());
 // app.use(cors({
 //   origin: 'https://mesto.app.nomoredomains.sbs',

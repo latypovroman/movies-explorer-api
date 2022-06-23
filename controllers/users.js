@@ -49,12 +49,7 @@ module.exports.login = (req, res, next) => {
 module.exports.getUserInfo = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => res.status(200).send(user))
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new BadRequestError('Пользователь по указанному _id не найден.'));
-      }
-      next(err);
-    });
+    .catch(next);
 };
 
 module.exports.patchUserInfo = (req, res, next) => {
@@ -74,10 +69,10 @@ module.exports.patchUserInfo = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Переданы некорректные данные при обновлении пользователя.'));
-      }
-      if (err.name === 'CastError') {
+      } else if (err.name === 'CastError') {
         next(new BadRequestError('Пользователь по указанному _id не найден.'));
+      } else {
+        next(err);
       }
-      next(err);
     });
 };
