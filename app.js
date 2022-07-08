@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
-// const cors = require('cors');
+const cors = require('cors');
 
 const { PORT = 3000 } = process.env;
 const { DATAB_URL } = process.env;
@@ -18,9 +18,7 @@ app.use(helmet.hidePoweredBy());
 app.use(requestLogger);
 app.use(limiter);
 app.use(express.json());
-// app.use(cors({
-//   origin: 'https://mesto.app.nomoredomains.sbs',
-// }));
+app.use(cors());
 app.use('/', routes);
 
 app.use(errorLogger);
