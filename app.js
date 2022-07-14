@@ -18,9 +18,7 @@ app.use(helmet.hidePoweredBy());
 app.use(requestLogger);
 app.use(limiter);
 app.use(express.json());
-app.use(cors({
-  origin: 'http://localhost:3000/'
-}));
+app.use(cors());
 app.use('/', routes);
 
 app.use(errorLogger);
