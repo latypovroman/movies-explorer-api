@@ -26,11 +26,11 @@ app.use(errors());
 app.use(createError);
 
 async function main() {
-  await mongoose.connect(DATAB_URL, {
+  await mongoose.connect('mongodb://localhost:27017/mestodb', {
     useNewUrlParser: true,
     useUnifiedTopology: false,
   });
   app.listen(PORT);
 }
-
+//'mongodb://localhost:27017/mestodb'
 main();
