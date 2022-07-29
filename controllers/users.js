@@ -9,7 +9,6 @@ const { JWT_SECRET = 'strong-secret-key' } = process.env;
 
 module.exports.createUser = (req, res, next) => {
   const { email, password, name } = req.body;
-
   bcrypt.hash(password, 10)
     .then((hash) => User.create({
       email, password: hash, name,
@@ -18,6 +17,7 @@ module.exports.createUser = (req, res, next) => {
       res.status(201).send({
         email: user.email,
         name: user.name,
+        password: user.password,
       });
     })
     .catch((err) => {
